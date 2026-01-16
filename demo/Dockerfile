@@ -4,11 +4,11 @@ FROM maven:3.9.4-eclipse-temurin-20 AS build
 WORKDIR /app
 
 # Copy pom.xml and download dependencies
-COPY pom.xml .
+COPY /demo/pom.xml .
 RUN mvn dependency:go-offline -B
 
 # Copy source code
-COPY src ./src
+COPY /demo/src ./src
 
 # Build the jar
 RUN mvn package -DskipTests
@@ -29,3 +29,4 @@ ENV PORT=10000
 
 # Run the jar
 ENTRYPOINT ["sh", "-c", "java -jar app.jar --server.port=$PORT"]
+
